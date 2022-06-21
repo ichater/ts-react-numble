@@ -49,6 +49,7 @@ export const GameRulesBox = styled.div`
   border: 1px solid black;
   padding: 1rem;
   border-radius: 0.25rem;
+  margin-top: 3rem;
 `;
 
 export const InformationHeaderWrapper = styled.div`
