@@ -1,11 +1,7 @@
 import AttemptCell from "./AttemptCell";
-import {
-  AttemptColumns,
-  AttemptsRowWrapper,
-  BodyMainWrapper,
-} from "./Styles/Styles";
+import { AttemptsRowWrapper } from "./Styles/Styles";
 
-const CellsArr = [1, 2, 3, 4, 5, 6];
+const CellsArr = [1, 2, 3, 4, 5, 6, 7];
 
 function AttemptsRow() {
   return (

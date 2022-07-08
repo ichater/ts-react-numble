@@ -1,7 +1,11 @@
-import { AnswerWrapper } from "./Styles/Styles";
+import { AnswerWrapper, Equals } from "./Styles/Styles";
 
 function Answer() {
-  return <AnswerWrapper>= I am a Answer</AnswerWrapper>;
+  return (
+    <AnswerWrapper>
+      <Equals>= 42</Equals>
+    </AnswerWrapper>
+  );
 }
 
 export default Answer;
