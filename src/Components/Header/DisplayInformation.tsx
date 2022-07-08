@@ -10,7 +10,7 @@ import {
   NumbleCell,
   SampleAnswer,
   SampleAnswerWrapper,
-} from "./HeaderStyles";
+} from "./Styles/Styles";
 import { AiOutlineClose } from "react-icons/ai";
 import { DARK, SUCCESS, WARNING } from "../../CSS/GlobalStyles";
 
@@ -18,10 +18,6 @@ type Props = {
   setDisplayInformation: Dispatch<SetStateAction<boolean>>;
   displayInformation: boolean;
 };
-
-// const SUCCESS = "#28a745";
-// const WARNING = "#ffc107";
-// const DARK = "rgb(35, 35, 35)";
 
 function DisplayInformation({
   setDisplayInformation,

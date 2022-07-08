@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import { InformationWrapper } from "./HeaderStyles";
+import { InformationWrapper } from "./Styles/Styles";
 
 type Props = {
   setDisplayInformation: Dispatch<SetStateAction<boolean>>;

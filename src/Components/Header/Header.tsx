@@ -5,7 +5,7 @@ import {
   NumbleHeading,
   HeaderCluster,
   HeaderSideBar,
-} from "./HeaderStyles";
+} from "./Styles/Styles";
 import { AiOutlineTable, AiOutlineInfoCircle } from "react-icons/ai";
 import { FiMoon } from "react-icons/fi";
 import Information from "./Information";
