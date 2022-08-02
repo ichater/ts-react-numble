@@ -1,3 +1,6 @@
+import React, { useContext } from "react";
+import { GameContext } from "../../Context/GameContext";
+
 import AttemptsRow from "./AttemptsRow";
 import {
   AttemptColumns,
@@ -5,15 +8,15 @@ import {
   BodyMainWrapper,
 } from "./Styles/Styles";
 
-const attemptsArr = [1, 2, 3, 4, 5, 6];
+function BodyMain(): JSX.Element {
+  const { attemptsArray, activeRow } = useContext(GameContext);
 
-function BodyMain() {
   return (
     <BodyMainWrapper>
       <AttemptsColumnsWrapper>
-        {attemptsArr.map((attempt) => (
-          <AttemptColumns>
-            <AttemptsRow />
+        {attemptsArray.map((arr, index) => (
+          <AttemptColumns key={index}>
+            <AttemptsRow cellArr={arr} isActiveRow={index === activeRow} />
           </AttemptColumns>
         ))}
       </AttemptsColumnsWrapper>

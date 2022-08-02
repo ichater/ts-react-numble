@@ -1,13 +1,16 @@
 import AttemptCell from "./AttemptCell";
 import { AttemptsRowWrapper } from "./Styles/Styles";
 
-const CellsArr = [1, 2, 3, 4, 5, 6, 7];
+type AttemptsRowProps = {
+  cellArr: number[];
+  isActiveRow: boolean;
+};
 
-function AttemptsRow() {
+function AttemptsRow({ cellArr, isActiveRow }: AttemptsRowProps) {
   return (
     <AttemptsRowWrapper>
-      {CellsArr.map((cellArr) => {
-        return <AttemptCell />;
+      {cellArr.map((cell, index) => {
+        return <AttemptCell key={index} isActive={isActiveRow} />;
       })}
     </AttemptsRowWrapper>
   );
