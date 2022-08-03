@@ -1,21 +1,11 @@
-import { createContext, SetStateAction, useState } from "react";
-
-export type AcceptedInputs =
-  | "0"
-  | "1"
-  | "2"
-  | "3"
-  | "4"
-  | "5"
-  | "6"
-  | "7"
-  | "8"
-  | "9"
-  | "+"
-  | "-"
-  | "*"
-  | "/"
-  | "";
+import { createContext, SetStateAction, useState, useEffect } from "react";
+import { AcceptedInputs, EquasionObject } from "../Types/Types";
+import {
+  defaultEquasionObject,
+  randomEquasionArray,
+  sevenArr,
+  validEquasion,
+} from "../utils/EquasionGenerator";
 
 type GameContextProps = {
   activeCell: number;
@@ -25,6 +15,7 @@ type GameContextProps = {
   activeRow: number;
   setActiveRow: React.Dispatch<SetStateAction<number>>;
   updateAttemptState: (value: AcceptedInputs) => void;
+  equasionObject: EquasionObject;
 };
 
 export const GameContext = createContext<GameContextProps>({
@@ -35,6 +26,7 @@ export const GameContext = createContext<GameContextProps>({
   activeRow: 0,
   setActiveRow: () => {},
   updateAttemptState: () => {},
+  equasionObject: defaultEquasionObject,
 });
 
 const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
@@ -50,6 +42,9 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [activeRow, setActiveRow] = useState(0);
   const [attemptsState, setAttemptsState] =
     useState<AcceptedInputs[][]>(attemptsArray);
+  const [equasionObject, setEquasionOject] = useState<EquasionObject>(
+    defaultEquasionObject
+  );
 
   const updateAttemptState = (value: any) => {
     setActiveCell((cell) => cell + 1);
@@ -58,6 +53,10 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
       return attemptArr;
     });
   };
+
+  useEffect(() => {
+    return setEquasionOject(validEquasion(randomEquasionArray(sevenArr)));
+  }, []);
 
   const keys = [
     "1",
@@ -77,10 +76,6 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
     "<-",
   ];
 
-  const EQUASION = ["9", "*", "6", "-", "3", "+", "5"];
-
-  console.log(eval(EQUASION.join("")));
-
   return (
     <GameContext.Provider
       value={{
@@ -91,6 +86,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
         keys,
         attemptsArray: attemptsState,
         updateAttemptState,
+        equasionObject,
       }}
     >
       {children}

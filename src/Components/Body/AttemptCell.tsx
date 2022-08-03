@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useEffect } from "react";
-import { GameContext, AcceptedInputs } from "../../Context/GameContext";
+import { GameContext } from "../../Context/GameContext";
+import { AcceptedInputs } from "../../Types/Types";
 import { Cell } from "./Styles/Styles";
 
 type AttemptsCellProps = {

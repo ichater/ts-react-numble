@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import { GameContext, AcceptedInputs } from "../../Context/GameContext";
+import { GameContext } from "../../Context/GameContext";
+import { AcceptedInputs } from "../../Types/Types";
 import AttemptCell from "./AttemptCell";
 import { AttemptsRowWrapper } from "./Styles/Styles";
 
