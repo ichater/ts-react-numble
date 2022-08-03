@@ -1,10 +1,9 @@
 import { createContext, SetStateAction, useState, useEffect } from "react";
+import { attemptsArray } from "../utils/AttemptsArray";
 import { AcceptedInputs, EquasionObject } from "../Types/Types";
 import {
   defaultEquasionObject,
-  randomEquasionArray,
-  sevenArr,
-  validEquasion,
+  randomEquasionObject,
 } from "../utils/EquasionGenerator";
 
 type GameContextProps = {
@@ -30,16 +29,8 @@ export const GameContext = createContext<GameContextProps>({
 });
 
 const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
-  const attemptsArray: AcceptedInputs[][] = [
-    ["", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", ""],
-    ["", "", "", "", "", "", ""],
-  ];
-  const [activeCell, setActiveCell] = useState(0);
-  const [activeRow, setActiveRow] = useState(0);
+  const [activeCell, setActiveCell] = useState<number>(0);
+  const [activeRow, setActiveRow] = useState<number>(0);
   const [attemptsState, setAttemptsState] =
     useState<AcceptedInputs[][]>(attemptsArray);
   const [equasionObject, setEquasionOject] = useState<EquasionObject>(
@@ -55,10 +46,10 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   };
 
   useEffect(() => {
-    return setEquasionOject(validEquasion(randomEquasionArray(sevenArr)));
+    return setEquasionOject(randomEquasionObject);
   }, []);
 
-  const keys = [
+  const keys: AcceptedInputs[] = [
     "1",
     "2",
     "3",

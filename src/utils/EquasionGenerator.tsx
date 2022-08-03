@@ -23,15 +23,18 @@ function getRandomOperator(): Operator {
   return operator();
 }
 
-export const sevenArr = [1, 2, 3, 4, 5, 6, 7];
+const sevenArr = [1, 2, 3, 4, 5, 6, 7];
 
 // Takes array of 7 elements and returns equasion array
-export const randomEquasionArray = (arr: number[]): string[] =>
+const randomEquasionArray = (arr: number[]): string[] =>
   arr.map((_, i) => (i % 2 === 0 ? randomIntToString(9) : getRandomOperator()));
+
+// Better than eval()
+const sum = (equasion: string) => new Function(`return ${equasion}`);
 
 // Takes in the array and checks if answer is an int returning boolean
 const answerIsInt = (equasion: string[]): boolean => {
-  const answer = eval(equasion.join(""));
+  const answer = sum(equasion.join(""))();
   return answer % 1 === 0;
 };
 
@@ -43,15 +46,19 @@ const isDividingByZero = (equasion: string[]): boolean =>
     )
     .includes("Bad");
 
-export const validEquasion = (equasionArr: string[]): EquasionObject => {
+const validEquasion = (equasionArr: string[]): EquasionObject => {
   if (!answerIsInt(equasionArr)) {
     return validEquasion(randomEquasionArray(sevenArr));
   }
 
   return isDividingByZero(equasionArr)
     ? validEquasion(randomEquasionArray(sevenArr))
-    : { equasionArray: equasionArr, answer: eval(equasionArr.join("")) };
+    : { equasionArray: equasionArr, answer: sum(equasionArr.join(""))() };
 };
+
+export const randomEquasionObject = validEquasion(
+  randomEquasionArray(sevenArr)
+);
 
 export const defaultEquasionObject: EquasionObject = {
   equasionArray: ["1", "+", "2", "/", "2", "*", "7"],

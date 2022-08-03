@@ -1,3 +1,5 @@
+export type Operator = "+" | "-" | "*" | "/";
+
 export type AcceptedInputs =
   | "0"
   | "1"
@@ -13,9 +15,8 @@ export type AcceptedInputs =
   | "-"
   | "*"
   | "/"
-  | "";
-
-export type Operator = "+" | "-" | "*" | "/";
+  | ""
+  | "<-";
 
 export interface EquasionObject {
   equasionArray: string[];
