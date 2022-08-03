@@ -1,28 +1,36 @@
-import { useContext, useState } from "react";
-import { GameContext } from "../../Context/GameContext";
+import React, { useContext, useRef, useEffect } from "react";
+import { GameContext, AcceptedInputs } from "../../Context/GameContext";
 import { Cell } from "./Styles/Styles";
 
 type AttemptsCellProps = {
   isActive: boolean;
+  value: AcceptedInputs;
 };
 
-function AttemptCell({ isActive }: AttemptsCellProps) {
-  const [message, setMessage] = useState("");
-  const { activeCell } = useContext(GameContext);
+function AttemptCell({ isActive, value }: AttemptsCellProps) {
+  const { updateAttemptState } = useContext(GameContext);
+  const ref = useRef<null | HTMLElement>(null);
 
-  const handleChange = (event: any) => {
+  useEffect(() => {
+    if (isActive) {
+      ref.current?.focus?.();
+    }
+  }, [isActive]);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const result = event.target.value.replace(/[^0-9-+*/]/gi, "");
-
-    setMessage(result);
+    result && updateAttemptState(result as any);
   };
 
   return (
     <div>
       <Cell
         onChange={handleChange}
-        value={message}
+        value={value}
         maxLength={1}
         disabled={!isActive}
+        autoFocus={isActive}
+        ref={ref as any}
       />
     </div>
   );

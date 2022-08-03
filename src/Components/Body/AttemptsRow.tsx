@@ -1,16 +1,25 @@
+import { useContext } from "react";
+import { GameContext, AcceptedInputs } from "../../Context/GameContext";
 import AttemptCell from "./AttemptCell";
 import { AttemptsRowWrapper } from "./Styles/Styles";
 
 type AttemptsRowProps = {
-  cellArr: number[];
+  cellArr: AcceptedInputs[];
   isActiveRow: boolean;
 };
 
 function AttemptsRow({ cellArr, isActiveRow }: AttemptsRowProps) {
+  const { activeCell } = useContext(GameContext);
   return (
     <AttemptsRowWrapper>
-      {cellArr.map((cell, index) => {
-        return <AttemptCell key={index} isActive={isActiveRow} />;
+      {cellArr.map((value, index) => {
+        return (
+          <AttemptCell
+            key={index}
+            isActive={isActiveRow && index === activeCell}
+            value={value}
+          />
+        );
       })}
     </AttemptsRowWrapper>
   );

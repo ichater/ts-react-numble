@@ -1,35 +1,63 @@
 import { createContext, SetStateAction, useState } from "react";
 
+export type AcceptedInputs =
+  | "0"
+  | "1"
+  | "2"
+  | "3"
+  | "4"
+  | "5"
+  | "6"
+  | "7"
+  | "8"
+  | "9"
+  | "+"
+  | "-"
+  | "*"
+  | "/"
+  | "";
+
 type GameContextProps = {
-  activeCell: boolean;
-  setActiveCell: React.Dispatch<React.SetStateAction<boolean>>;
+  activeCell: number;
+  setActiveCell: React.Dispatch<React.SetStateAction<number>>;
   keys: string[];
-  attemptsArray: number[][];
+  attemptsArray: AcceptedInputs[][];
   activeRow: number;
   setActiveRow: React.Dispatch<SetStateAction<number>>;
+  updateAttemptState: (value: AcceptedInputs) => void;
 };
 
 export const GameContext = createContext<GameContextProps>({
-  activeCell: false,
+  activeCell: 0,
   setActiveCell: () => {},
   keys: [],
-  attemptsArray: [[1]],
+  attemptsArray: [[""]],
   activeRow: 0,
   setActiveRow: () => {},
+  updateAttemptState: () => {},
 });
 
 const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
-  const attemptsArray: number[][] = [
-    [1, 2, 3, 4, 5, 6, 7],
-    [1, 2, 3, 4, 5, 6, 7],
-    [1, 2, 3, 4, 5, 6, 7],
-    [1, 2, 3, 4, 5, 6, 7],
-    [1, 2, 3, 4, 5, 6, 7],
-    [1, 2, 3, 4, 5, 6, 7],
+  const attemptsArray: AcceptedInputs[][] = [
+    ["", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", ""],
+    ["", "", "", "", "", "", ""],
   ];
-  const [activeCell, setActiveCell] = useState(false);
+  const [activeCell, setActiveCell] = useState(0);
   const [activeRow, setActiveRow] = useState(0);
-  const [attemptsState, setAttemptsState] = useState<number[][]>(attemptsArray);
+  const [attemptsState, setAttemptsState] =
+    useState<AcceptedInputs[][]>(attemptsArray);
+
+  const updateAttemptState = (value: any) => {
+    setActiveCell((cell) => cell + 1);
+    setAttemptsState((attemptArr) => {
+      attemptArr[activeRow][activeCell] = value;
+      return attemptArr;
+    });
+  };
 
   const keys = [
     "1",
@@ -62,6 +90,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
         setActiveRow,
         keys,
         attemptsArray: attemptsState,
+        updateAttemptState,
       }}
     >
       {children}
