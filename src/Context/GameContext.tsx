@@ -13,7 +13,7 @@ type GameContextProps = {
   attemptsArray: AcceptedInputs[][];
   activeRow: number;
   setActiveRow: React.Dispatch<SetStateAction<number>>;
-  updateAttemptState: (value: AcceptedInputs) => void;
+  updateAttemptState: (value: AcceptedInputs, isBackspace: boolean) => void;
   equasionObject: EquasionObject;
 };
 
@@ -37,12 +37,21 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
     defaultEquasionObject
   );
 
-  const updateAttemptState = (value: any) => {
-    setActiveCell((cell) => cell + 1);
-    setAttemptsState((attemptArr) => {
-      attemptArr[activeRow][activeCell] = value;
-      return attemptArr;
-    });
+  const updateAttemptState = (value: any, isBackSpace: boolean) => {
+    if (activeCell - 1 >= 0 && isBackSpace) {
+      setActiveCell((cell) => cell - 1);
+      setAttemptsState((attemptArr) => {
+        attemptArr[activeRow][activeCell - 1] = "";
+        return attemptArr;
+      });
+    }
+    if (keys.includes(value)) {
+      setActiveCell((cell) => cell + 1);
+      setAttemptsState((attemptArr) => {
+        attemptArr[activeRow][activeCell] = value;
+        return attemptArr;
+      });
+    }
   };
 
   useEffect(() => {

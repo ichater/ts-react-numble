@@ -9,7 +9,7 @@ type AttemptsCellProps = {
 };
 
 function AttemptCell({ isActive, value }: AttemptsCellProps) {
-  const { updateAttemptState } = useContext(GameContext);
+  const { keys, updateAttemptState } = useContext(GameContext);
   const ref = useRef<null | HTMLElement>(null);
 
   useEffect(() => {
@@ -19,8 +19,14 @@ function AttemptCell({ isActive, value }: AttemptsCellProps) {
   }, [isActive]);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const result = event.target.value.replace(/[^0-9-+*/]/gi, "");
-    result && updateAttemptState(result as any);
+    const result = keys.filter((e) => e === event.target.value).length > 0;
+    result && updateAttemptState(event.target.value as any, false);
+  };
+
+  const setKeyDown = (event: React.KeyboardEvent<Element>) => {
+    if (event.key === "Backspace") {
+      updateAttemptState("", true);
+    }
   };
 
   return (
@@ -28,10 +34,11 @@ function AttemptCell({ isActive, value }: AttemptsCellProps) {
       <Cell
         onChange={handleChange}
         value={value}
-        maxLength={1}
+        maxLength={2}
         disabled={!isActive}
         autoFocus={isActive}
         ref={ref as any}
+        onKeyDown={(e: React.KeyboardEvent) => setKeyDown(e)}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import {
   HeaderWrapper,
@@ -18,9 +18,6 @@ type Props = {
 const Header = ({ title }: Props) => {
   const [displayInformation, setDisplayInformation] = useState(false);
 
-  useEffect(() => {
-    console.log(displayInformation);
-  }, [displayInformation]);
   return (
     <HeaderWrapper>
       <HeaderCluster>
