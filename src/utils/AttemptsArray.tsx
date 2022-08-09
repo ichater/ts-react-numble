@@ -1,10 +1,58 @@
-import { AcceptedInputs } from "../Types/Types";
+import { CellState } from "../Types/Types";
 
-export const attemptsArray: AcceptedInputs[][] = [
-  ["", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", ""],
-  ["", "", "", "", "", "", ""],
+export const attemptsArray: CellState[][] = [
+  [
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+  ],
+  [
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+  ],
+  [
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+  ],
+  [
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+  ],
+  [
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+  ],
+  [
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+    { content: "", color: "plain" },
+  ],
 ];

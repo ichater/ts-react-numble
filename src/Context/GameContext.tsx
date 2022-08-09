@@ -1,6 +1,6 @@
 import { createContext, SetStateAction, useState, useEffect } from "react";
 import { attemptsArray } from "../utils/AttemptsArray";
-import { AcceptedInputs, EquasionObject } from "../Types/Types";
+import { AcceptedInputs, CellState, EquasionObject } from "../Types/Types";
 import {
   defaultEquasionObject,
   randomEquasionObject,
@@ -10,7 +10,7 @@ type GameContextProps = {
   activeCell: number;
   setActiveCell: React.Dispatch<React.SetStateAction<number>>;
   keys: string[];
-  attemptsArray: AcceptedInputs[][];
+  attemptsArray: CellState[][];
   activeRow: number;
   setActiveRow: React.Dispatch<SetStateAction<number>>;
   updateAttemptState: (value: AcceptedInputs, isBackspace: boolean) => void;
@@ -22,7 +22,7 @@ export const GameContext = createContext<GameContextProps>({
   activeCell: 0,
   setActiveCell: () => {},
   keys: [],
-  attemptsArray: [[""]],
+  attemptsArray: [[{ content: "", color: "plain" }]],
   activeRow: 0,
   setActiveRow: () => {},
   updateAttemptState: () => {},
@@ -34,7 +34,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [activeCell, setActiveCell] = useState<number>(0);
   const [activeRow, setActiveRow] = useState<number>(0);
   const [attemptsState, setAttemptsState] =
-    useState<AcceptedInputs[][]>(attemptsArray);
+    useState<CellState[][]>(attemptsArray);
   const [equasionObject, setEquasionOject] = useState<EquasionObject>(
     defaultEquasionObject
   );
@@ -51,7 +51,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
       // If BackSpace is pressed
       setActiveCell((cell) => cell - 1);
       setAttemptsState((attemptArr) => {
-        attemptArr[activeRow][activeCell - 1] = "";
+        attemptArr[activeRow][activeCell - 1].content = "";
         return attemptArr;
       });
     }
@@ -59,9 +59,10 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
     if (keys.includes(value) && activeCell <= 6) {
       setActiveCell((cell) => cell + 1);
       setAttemptsState((attemptArr) => {
-        attemptArr[activeRow][activeCell] = value;
+        attemptArr[activeRow][activeCell].content = value;
         return attemptArr;
       });
+      console.log(attemptsArray);
     }
   };
 

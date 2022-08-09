@@ -1,5 +1,10 @@
 import React from "react";
+import { AcceptedInputs, CellState } from "../Types/Types";
 import { validEquasion } from "./EquasionGenerator";
+
+const extractEquasionFromAttempt = (
+  currentRow: CellState[]
+): AcceptedInputs[] => currentRow.map((e) => e.content);
 
 const isCorrectAnswer = (answer: string[], attempt: string[]): boolean =>
   validEquasion(answer).answer === validEquasion(attempt).answer;

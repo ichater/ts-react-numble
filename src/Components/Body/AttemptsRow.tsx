@@ -1,11 +1,11 @@
 import { useContext } from "react";
 import { GameContext } from "../../Context/GameContext";
-import { AcceptedInputs } from "../../Types/Types";
+import { CellState } from "../../Types/Types";
 import AttemptCell from "./AttemptCell";
 import { AttemptsRowWrapper } from "./Styles/Styles";
 
 type AttemptsRowProps = {
-  cellArr: AcceptedInputs[];
+  cellArr: CellState[];
   isActiveRow: boolean;
 };
 
