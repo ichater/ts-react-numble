@@ -4,21 +4,22 @@ import { KeyboardAreaWrapper } from "./styles/styles";
 import { GameContext } from "../../Context/GameContext";
 
 function Keyboard() {
-  const { keys, updateAttemptState } = useContext(GameContext);
+  const { keys, updateAddAttemptState, updateDeleteAttemptState } =
+    useContext(GameContext);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Backspace") {
-        return updateAttemptState("", true);
+        return updateDeleteAttemptState();
       }
       const result = keys.filter((e) => e === event.key).length > 0;
-      result && updateAttemptState(event.key as any, false);
+      result && updateAddAttemptState(event.key as any);
     };
 
     document.addEventListener("keypress", handleKeyDown);
 
     return () => document.removeEventListener("keypress", handleKeyDown);
-  }, [keys, updateAttemptState]);
+  }, [keys, updateAddAttemptState, updateDeleteAttemptState]);
 
   return (
     <KeyboardAreaWrapper>

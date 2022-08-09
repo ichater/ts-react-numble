@@ -9,7 +9,7 @@ type AttemptsCellProps = {
 function AttemptCell({ value }: AttemptsCellProps) {
   return (
     <div>
-      <Cell>{value.content}</Cell>
+      <Cell color={value.color}>{value.content}</Cell>
     </div>
   );
 }

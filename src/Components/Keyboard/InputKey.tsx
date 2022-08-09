@@ -7,11 +7,12 @@ type InputKeyProps = {
 };
 
 const InputKey = ({ operator }: InputKeyProps): JSX.Element => {
-  const { updateAttemptState } = useContext(GameContext);
+  const { updateAddAttemptState, updateDeleteAttemptState } =
+    useContext(GameContext);
   const handleChange = (event: string) =>
     event === "<-"
-      ? updateAttemptState("", true)
-      : updateAttemptState(event as any, false);
+      ? updateDeleteAttemptState()
+      : updateAddAttemptState(event as any);
 
   return (
     <InputKeyStyle onClick={() => handleChange(operator)}>

@@ -1,6 +1,11 @@
 import { createContext, SetStateAction, useState, useEffect } from "react";
 import { attemptsArray } from "../utils/AttemptsArray";
-import { AcceptedInputs, CellState, EquasionObject } from "../Types/Types";
+import {
+  AcceptedInputs,
+  CellColor,
+  CellState,
+  EquasionObject,
+} from "../Types/Types";
 import {
   defaultEquasionObject,
   randomEquasionObject,
@@ -13,7 +18,8 @@ type GameContextProps = {
   attemptsArray: CellState[][];
   activeRow: number;
   setActiveRow: React.Dispatch<SetStateAction<number>>;
-  updateAttemptState: (value: AcceptedInputs, isBackspace: boolean) => void;
+  updateAddAttemptState: (value: AcceptedInputs) => void;
+  updateDeleteAttemptState: () => void;
   equasionObject: EquasionObject;
   handleSubmit: () => void;
 };
@@ -22,10 +28,11 @@ export const GameContext = createContext<GameContextProps>({
   activeCell: 0,
   setActiveCell: () => {},
   keys: [],
-  attemptsArray: [[{ content: "", color: "plain" }]],
+  attemptsArray: [[{ content: "", color: CellColor.plain }]],
   activeRow: 0,
   setActiveRow: () => {},
-  updateAttemptState: () => {},
+  updateAddAttemptState: () => {},
+  updateDeleteAttemptState: () => {},
   equasionObject: defaultEquasionObject,
   handleSubmit: () => {},
 });
@@ -46,23 +53,23 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
     }
   };
 
-  const updateAttemptState = (value: any, isBackSpace: boolean) => {
-    if (activeCell - 1 >= 0 && isBackSpace) {
-      // If BackSpace is pressed
-      setActiveCell((cell) => cell - 1);
-      setAttemptsState((attemptArr) => {
-        attemptArr[activeRow][activeCell - 1].content = "";
-        return attemptArr;
-      });
-    }
-    // Other possibilities
+  const updateAddAttemptState = (value: any) => {
     if (keys.includes(value) && activeCell <= 6) {
       setActiveCell((cell) => cell + 1);
       setAttemptsState((attemptArr) => {
         attemptArr[activeRow][activeCell].content = value;
         return attemptArr;
       });
-      console.log(attemptsArray);
+    }
+  };
+
+  const updateDeleteAttemptState = () => {
+    if (activeCell - 1 >= 0) {
+      setActiveCell((cell) => cell - 1);
+      setAttemptsState((attemptArr) => {
+        attemptArr[activeRow][activeCell - 1].content = "";
+        return attemptArr;
+      });
     }
   };
 
@@ -97,7 +104,8 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
         setActiveRow,
         keys,
         attemptsArray: attemptsState,
-        updateAttemptState,
+        updateAddAttemptState,
+        updateDeleteAttemptState,
         equasionObject,
         handleSubmit,
       }}

@@ -23,7 +23,14 @@ export interface EquasionObject {
   answer: number;
 }
 
-export type CellColor = "black" | "yellow" | "plain" | "green";
+// export type CellColor = "black" | "yellow" | "plain" | "green";
+
+export enum CellColor {
+  plain = "",
+  yellow = "#ffc107",
+  black = "black",
+  green = "#28a745",
+}
 
 export interface CellState {
   content: AcceptedInputs;

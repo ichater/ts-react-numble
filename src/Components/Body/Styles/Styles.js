@@ -42,6 +42,9 @@ export const AttemptsRowWrapper = styled.div`
 `;
 
 export const Cell = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 3rem;
   width: 3rem;
   border: 1px solid rgb(108, 117, 125);
@@ -49,6 +52,8 @@ export const Cell = styled.div`
   border-radius: 0.25rem;
   font-size: 1.5rem;
   text-align: center;
+  color: ${(props) => (props.color === "plain" ? "black" : "white")};
+  background-color: ${(props) => props.color};
   :hover {
     background-color: rgb(108, 117, 125);
     cursor: pointer;
