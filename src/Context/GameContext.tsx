@@ -39,12 +39,14 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
 
   const updateAttemptState = (value: any, isBackSpace: boolean) => {
     if (activeCell - 1 >= 0 && isBackSpace) {
+      // If BackSpace is pressed
       setActiveCell((cell) => cell - 1);
       setAttemptsState((attemptArr) => {
         attemptArr[activeRow][activeCell - 1] = "";
         return attemptArr;
       });
     }
+    // Other possibilities
     if (keys.includes(value)) {
       setActiveCell((cell) => cell + 1);
       setAttemptsState((attemptArr) => {

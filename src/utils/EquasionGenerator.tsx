@@ -27,7 +27,9 @@ const sevenArr = [1, 2, 3, 4, 5, 6, 7];
 
 // Takes array of 7 elements and returns equasion array
 const randomEquasionArray = (arr: number[]): string[] =>
-  arr.map((_, i) => (i % 2 === 0 ? randomIntToString(9) : getRandomOperator()));
+  arr.map((_, i) =>
+    i % 2 === 0 ? randomIntToString(10) : getRandomOperator()
+  );
 
 // Better than eval()
 const sum = (equasion: string) => new Function(`return ${equasion}`);
@@ -46,7 +48,7 @@ const isDividingByZero = (equasion: string[]): boolean =>
     )
     .includes("Bad");
 
-const validEquasion = (equasionArr: string[]): EquasionObject => {
+export const validEquasion = (equasionArr: string[]): EquasionObject => {
   if (!answerIsInt(equasionArr)) {
     return validEquasion(randomEquasionArray(sevenArr));
   }

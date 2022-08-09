@@ -23,7 +23,7 @@ function AttemptCell({ isActive, value }: AttemptsCellProps) {
     result && updateAttemptState(event.target.value as any, false);
   };
 
-  const setKeyDown = (event: React.KeyboardEvent<Element>) => {
+  const onBackSpace = (event: React.KeyboardEvent<Element>) => {
     if (event.key === "Backspace") {
       updateAttemptState("", true);
     }
@@ -38,7 +38,7 @@ function AttemptCell({ isActive, value }: AttemptsCellProps) {
         disabled={!isActive}
         autoFocus={isActive}
         ref={ref as any}
-        onKeyDown={(e: React.KeyboardEvent) => setKeyDown(e)}
+        onKeyDown={(e: React.KeyboardEvent) => onBackSpace(e)}
       />
     </div>
   );
