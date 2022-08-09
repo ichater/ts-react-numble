@@ -4,7 +4,7 @@ import InputKey from "./InputKey";
 import { EnterKey, KeyboardWrapper } from "./styles/styles";
 
 function Keys(): JSX.Element {
-  const { keys } = useContext(GameContext);
+  const { keys, handleSubmit } = useContext(GameContext);
   return (
     <div>
       <KeyboardWrapper>
@@ -12,7 +12,7 @@ function Keys(): JSX.Element {
           <InputKey operator={key} key={key} />
         ))}
       </KeyboardWrapper>
-      <EnterKey>Enter</EnterKey>
+      <EnterKey onClick={() => handleSubmit()}>Enter</EnterKey>
     </div>
   );
 }

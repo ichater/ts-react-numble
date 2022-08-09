@@ -15,6 +15,7 @@ type GameContextProps = {
   setActiveRow: React.Dispatch<SetStateAction<number>>;
   updateAttemptState: (value: AcceptedInputs, isBackspace: boolean) => void;
   equasionObject: EquasionObject;
+  handleSubmit: () => void;
 };
 
 export const GameContext = createContext<GameContextProps>({
@@ -26,6 +27,7 @@ export const GameContext = createContext<GameContextProps>({
   setActiveRow: () => {},
   updateAttemptState: () => {},
   equasionObject: defaultEquasionObject,
+  handleSubmit: () => {},
 });
 
 const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
@@ -37,6 +39,13 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
     defaultEquasionObject
   );
 
+  const handleSubmit = () => {
+    if (activeCell === attemptsState[activeRow].length) {
+      setActiveCell(0);
+      setActiveRow((row) => row + 1);
+    }
+  };
+
   const updateAttemptState = (value: any, isBackSpace: boolean) => {
     if (activeCell - 1 >= 0 && isBackSpace) {
       // If BackSpace is pressed
@@ -47,7 +56,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
       });
     }
     // Other possibilities
-    if (keys.includes(value)) {
+    if (keys.includes(value) && activeCell <= 6) {
       setActiveCell((cell) => cell + 1);
       setAttemptsState((attemptArr) => {
         attemptArr[activeRow][activeCell] = value;
@@ -89,6 +98,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
         attemptsArray: attemptsState,
         updateAttemptState,
         equasionObject,
+        handleSubmit,
       }}
     >
       {children}

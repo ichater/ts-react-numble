@@ -22,3 +22,10 @@ export interface EquasionObject {
   equasionArray: string[];
   answer: number;
 }
+
+export type CellColor = "black" | "yellow" | "plain" | "green";
+
+export interface CellState {
+  content: AcceptedInputs;
+  color: CellColor;
+}

@@ -14,13 +14,7 @@ function AttemptsRow({ cellArr, isActiveRow }: AttemptsRowProps) {
   return (
     <AttemptsRowWrapper>
       {cellArr.map((value, index) => {
-        return (
-          <AttemptCell
-            key={index}
-            isActive={isActiveRow && index === activeCell}
-            value={value}
-          />
-        );
+        return <AttemptCell key={index} value={value} />;
       })}
     </AttemptsRowWrapper>
   );

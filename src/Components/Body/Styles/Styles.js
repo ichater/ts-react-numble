@@ -41,7 +41,7 @@ export const AttemptsRowWrapper = styled.div`
   margin-left: 10rem;
 `;
 
-export const Cell = styled.input`
+export const Cell = styled.div`
   height: 3rem;
   width: 3rem;
   border: 1px solid rgb(108, 117, 125);
