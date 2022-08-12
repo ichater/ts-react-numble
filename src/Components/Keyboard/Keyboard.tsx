@@ -16,9 +16,9 @@ function Keyboard() {
       result && updateAddAttemptState(event.key as any);
     };
 
-    document.addEventListener("keypress", handleKeyDown);
+    window.addEventListener("keypress", handleKeyDown);
 
-    return () => document.removeEventListener("keypress", handleKeyDown);
+    return () => window.removeEventListener("keypress", handleKeyDown);
   }, [keys, updateAddAttemptState, updateDeleteAttemptState]);
 
   return (

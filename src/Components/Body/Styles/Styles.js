@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { CellColor } from "../../../Types/Types";
 
 export const BodyWrapper = styled.div`
   display: flex;
@@ -47,15 +48,19 @@ export const Cell = styled.div`
   justify-content: center;
   height: 3rem;
   width: 3rem;
-  border: 1px solid rgb(108, 117, 125);
+  border: 1px solid ${(props) => props.color};
   margin: 0.5rem;
   border-radius: 0.25rem;
   font-size: 1.5rem;
   text-align: center;
-  color: ${(props) => (props.color === "plain" ? "black" : "white")};
+  color: ${(props) => (props.color === CellColor.plain ? "black" : "white")};
   background-color: ${(props) => props.color};
   :hover {
-    background-color: rgb(108, 117, 125);
+    background-color: ${(props) => {
+      if (props.color === CellColor.plain) return "rgb(108, 117, 125)";
+      if (props.color === CellColor.green) return "#28a7465e";
+      if (props.color === CellColor.yellow) return "#ffc1076b";
+    }};
     cursor: pointer;
     color: white;
   }
