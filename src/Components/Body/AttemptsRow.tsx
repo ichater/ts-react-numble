@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { GameContext } from "../../Context/GameContext";
 import { CellState } from "../../Types/Types";
 import AttemptCell from "./AttemptCell";
 import { AttemptsRowWrapper } from "./Styles/Styles";
@@ -9,8 +7,7 @@ type AttemptsRowProps = {
   isActiveRow: boolean;
 };
 
-function AttemptsRow({ cellArr, isActiveRow }: AttemptsRowProps) {
-  const { activeCell } = useContext(GameContext);
+function AttemptsRow({ cellArr }: AttemptsRowProps) {
   return (
     <AttemptsRowWrapper>
       {cellArr.map((value, index) => {

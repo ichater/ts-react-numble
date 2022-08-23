@@ -9,7 +9,9 @@ import {
 import {
   defaultEquasionObject,
   randomEquasionObject,
+  validEquasion,
 } from "../utils/EquasionGenerator";
+import { determineGreenYellowBlack } from "../utils/EquasionValidator";
 
 type GameContextProps = {
   activeCell: number;
@@ -47,9 +49,35 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   );
 
   const handleSubmit = () => {
-    if (activeCell === attemptsState[activeRow].length) {
-      setActiveCell(0);
-      setActiveRow((row) => row + 1);
+    const attemptArray = attemptsState[activeRow].map((i) => i.content);
+
+    if (
+      activeCell === attemptsState[activeRow].length &&
+      validEquasion(attemptArray).answer === equasionObject.answer
+    ) {
+      const greenBlackYellow = determineGreenYellowBlack(
+        attemptArray,
+        equasionObject.equasionArray
+      );
+
+      const validatedRow = attemptsState[activeRow].map((value, index) => ({
+        ...value,
+        color: greenBlackYellow[index],
+      }));
+
+      if (attemptArray.toString() === equasionObject.equasionArray.toString()) {
+        setAttemptsState((attemptsState) => {
+          attemptsState[activeRow] = validatedRow;
+          return [...attemptsState];
+        });
+      } else {
+        setAttemptsState((attemptsState) => {
+          attemptsState[activeRow] = validatedRow;
+          return [...attemptsState];
+        });
+        setActiveCell(0);
+        setActiveRow((row) => row + 1);
+      }
     }
   };
 
@@ -58,7 +86,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
       setActiveCell((cell) => cell + 1);
       setAttemptsState((attemptArr) => {
         attemptArr[activeRow][activeCell].content = value;
-        return attemptArr;
+        return [...attemptArr];
       });
     }
   };
@@ -68,7 +96,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
       setActiveCell((cell) => cell - 1);
       setAttemptsState((attemptArr) => {
         attemptArr[activeRow][activeCell - 1].content = "";
-        return attemptArr;
+        return [...attemptArr];
       });
     }
   };

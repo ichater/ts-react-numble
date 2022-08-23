@@ -2,10 +2,10 @@ import { CellColor, CellState } from "../Types/Types";
 
 export const attemptsArray: CellState[][] = [
   [
-    { content: "8", color: CellColor.green },
-    { content: "/", color: CellColor.yellow },
-    { content: "9", color: CellColor.black },
-    { content: "+", color: CellColor.plain },
+    { content: "", color: CellColor.plain },
+    { content: "", color: CellColor.plain },
+    { content: "", color: CellColor.plain },
+    { content: "", color: CellColor.plain },
     { content: "", color: CellColor.plain },
     { content: "", color: CellColor.plain },
     { content: "", color: CellColor.plain },
