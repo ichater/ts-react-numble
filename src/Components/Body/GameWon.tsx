@@ -1,4 +1,4 @@
-import Reeact from "react";
+import React from "react";
 import { WonCell, WonCellWrapper } from "./Styles/Styles";
 
 const GameWon = () => {

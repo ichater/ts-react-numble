@@ -1,17 +1,17 @@
 import { useContext } from "react";
 import { GameContext } from "../../Context/GameContext";
-import Answer from "./Answer";
+
 import BodyMain from "./BodyMain";
 import GameWon from "./GameWon";
 import { BodyWrapper } from "./Styles/Styles";
 
 const Body = () => {
-  const { gameWon } = useContext(GameContext);
+  const { gameWon, equasionObject } = useContext(GameContext);
   return (
     <>
+      <p>{equasionObject.equasionArray.join(" ")}</p>
       <BodyWrapper>
         <BodyMain />
-        <Answer />
       </BodyWrapper>
       {gameWon && <GameWon />}
     </>

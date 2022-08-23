@@ -1,18 +1,22 @@
+import React, { useContext } from "react";
+import { GameContext } from "../../Context/GameContext";
 import { CellState } from "../../Types/Types";
 import AttemptCell from "./AttemptCell";
-import { AttemptsRowWrapper } from "./Styles/Styles";
+import { Answer, AttemptsRowWrapper } from "./Styles/Styles";
 
 type AttemptsRowProps = {
   cellArr: CellState[];
   isActiveRow: boolean;
 };
 
-function AttemptsRow({ cellArr }: AttemptsRowProps) {
+function AttemptsRow({ cellArr, isActiveRow }: AttemptsRowProps) {
+  const { equasionObject } = useContext(GameContext);
   return (
     <AttemptsRowWrapper>
       {cellArr.map((value, index) => {
         return <AttemptCell key={index} value={value} />;
       })}
+      {isActiveRow && <Answer> &nbsp; = &nbsp;{equasionObject.answer}</Answer>}
     </AttemptsRowWrapper>
   );
 }

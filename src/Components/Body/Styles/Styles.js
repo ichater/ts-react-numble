@@ -4,13 +4,12 @@ import { CellColor } from "../../../Types/Types";
 export const BodyWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 `;
 
 export const AnswerWrapper = styled.div`
   width: 40%;
   display: flex;
-  align-items: center;
 `;
 
 export const Equals = styled.div`
@@ -23,7 +22,7 @@ export const BodyMainWrapper = styled.div`
   padding-top: 2rem;
   flex-grow: 4;
   display: flex;
-  justify-content: right;
+  justify-content: center;
 `;
 
 export const AttemptsColumnsWrapper = styled.div`
@@ -38,8 +37,16 @@ export const AttemptColumns = styled.div`
 export const AttemptsRowWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: left;
   margin-left: 10rem;
+`;
+
+export const Answer = styled.div`
+  font-family: "Courier New", Courier, monospace;
+  font-size: 2rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
 `;
 
 export const Cell = styled.div`
