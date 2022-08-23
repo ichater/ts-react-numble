@@ -65,3 +65,28 @@ export const Cell = styled.div`
     color: white;
   }
 `;
+
+export const WonCellWrapper = styled.div`
+  display: flex;
+  width: 300px;
+  margin: auto;
+`;
+
+export const WonCell = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+  border: 1px solid ${(props) => props.color};
+  margin: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 1.5rem;
+  text-align: center;
+  color: white;
+  background-color: #dc3545;
+  :hover {
+    cursor: pointer;
+    background-color: #bd4242;
+  }
+`;

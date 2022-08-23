@@ -24,6 +24,7 @@ type GameContextProps = {
   updateDeleteAttemptState: () => void;
   equasionObject: EquasionObject;
   handleSubmit: () => void;
+  gameWon: boolean;
 };
 
 export const GameContext = createContext<GameContextProps>({
@@ -37,6 +38,7 @@ export const GameContext = createContext<GameContextProps>({
   updateDeleteAttemptState: () => {},
   equasionObject: defaultEquasionObject,
   handleSubmit: () => {},
+  gameWon: false,
 });
 
 const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
@@ -47,6 +49,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [equasionObject, setEquasionOject] = useState<EquasionObject>(
     defaultEquasionObject
   );
+  const [gameWon, setGameWon] = useState<boolean>(false);
 
   const handleSubmit = () => {
     const attemptArray = attemptsState[activeRow].map((i) => i.content);
@@ -70,6 +73,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
           attemptsState[activeRow] = validatedRow;
           return [...attemptsState];
         });
+        setGameWon(true);
       } else {
         setAttemptsState((attemptsState) => {
           attemptsState[activeRow] = validatedRow;
@@ -82,6 +86,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   };
 
   const updateAddAttemptState = (value: any) => {
+    if (gameWon) return;
     if (keys.includes(value) && activeCell <= 6) {
       setActiveCell((cell) => cell + 1);
       setAttemptsState((attemptArr) => {
@@ -92,6 +97,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   };
 
   const updateDeleteAttemptState = () => {
+    if (gameWon) return;
     if (activeCell - 1 >= 0) {
       setActiveCell((cell) => cell - 1);
       setAttemptsState((attemptArr) => {
@@ -136,6 +142,7 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
         updateDeleteAttemptState,
         equasionObject,
         handleSubmit,
+        gameWon,
       }}
     >
       {children}
