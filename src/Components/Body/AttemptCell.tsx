@@ -1,45 +1,15 @@
-import React, { useContext, useRef, useEffect } from "react";
-import { GameContext } from "../../Context/GameContext";
-import { AcceptedInputs } from "../../Types/Types";
+import React from "react";
+import { CellState } from "../../Types/Types";
 import { Cell } from "./Styles/Styles";
 
 type AttemptsCellProps = {
-  isActive: boolean;
-  value: AcceptedInputs;
+  value: CellState;
 };
 
-function AttemptCell({ isActive, value }: AttemptsCellProps) {
-  const { keys, updateAttemptState } = useContext(GameContext);
-  const ref = useRef<null | HTMLElement>(null);
-
-  useEffect(() => {
-    if (isActive) {
-      ref.current?.focus?.();
-    }
-  }, [isActive]);
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const result = keys.filter((e) => e === event.target.value).length > 0;
-    result && updateAttemptState(event.target.value as any, false);
-  };
-
-  const onBackSpace = (event: React.KeyboardEvent<Element>) => {
-    if (event.key === "Backspace") {
-      updateAttemptState("", true);
-    }
-  };
-
+function AttemptCell({ value }: AttemptsCellProps) {
   return (
     <div>
-      <Cell
-        onChange={handleChange}
-        value={value}
-        maxLength={2}
-        disabled={!isActive}
-        autoFocus={isActive}
-        ref={ref as any}
-        onKeyDown={(e: React.KeyboardEvent) => onBackSpace(e)}
-      />
+      <Cell color={value.color}>{value.content}</Cell>
     </div>
   );
 }

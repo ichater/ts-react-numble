@@ -1,4 +1,3 @@
-import React from "react";
 import { Operator, EquasionObject } from "../Types/Types";
 
 const randomIntToString = (max: number): string =>
@@ -26,22 +25,22 @@ function getRandomOperator(): Operator {
 const sevenArr = [1, 2, 3, 4, 5, 6, 7];
 
 // Takes array of 7 elements and returns equasion array
-const randomEquasionArray = (arr: number[]): string[] =>
+export const randomEquasionArray = (arr: number[]): string[] =>
   arr.map((_, i) =>
     i % 2 === 0 ? randomIntToString(10) : getRandomOperator()
   );
 
 // Better than eval()
-const sum = (equasion: string) => new Function(`return ${equasion}`);
+export const sum = (equasion: string) => new Function(`return ${equasion}`);
 
 // Takes in the array and checks if answer is an int returning boolean
-const answerIsInt = (equasion: string[]): boolean => {
+export const answerIsInt = (equasion: string[]): boolean => {
   const answer = sum(equasion.join(""))();
   return answer % 1 === 0;
 };
 
 // Takes in array and returns true if dividing by zero
-const isDividingByZero = (equasion: string[]): boolean =>
+export const isDividingByZero = (equasion: string[]): boolean =>
   equasion
     .map((item, index) =>
       item === "0" && equasion[index - 1] === "/" ? "Bad" : "Good"

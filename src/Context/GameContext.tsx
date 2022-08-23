@@ -1,57 +1,102 @@
 import { createContext, SetStateAction, useState, useEffect } from "react";
 import { attemptsArray } from "../utils/AttemptsArray";
-import { AcceptedInputs, EquasionObject } from "../Types/Types";
+import {
+  AcceptedInputs,
+  CellColor,
+  CellState,
+  EquasionObject,
+} from "../Types/Types";
 import {
   defaultEquasionObject,
   randomEquasionObject,
+  validEquasion,
 } from "../utils/EquasionGenerator";
+import { determineGreenYellowBlack } from "../utils/EquasionValidator";
 
 type GameContextProps = {
   activeCell: number;
   setActiveCell: React.Dispatch<React.SetStateAction<number>>;
   keys: string[];
-  attemptsArray: AcceptedInputs[][];
+  attemptsArray: CellState[][];
   activeRow: number;
   setActiveRow: React.Dispatch<SetStateAction<number>>;
-  updateAttemptState: (value: AcceptedInputs, isBackspace: boolean) => void;
+  updateAddAttemptState: (value: AcceptedInputs) => void;
+  updateDeleteAttemptState: () => void;
   equasionObject: EquasionObject;
+  handleSubmit: () => void;
 };
 
 export const GameContext = createContext<GameContextProps>({
   activeCell: 0,
   setActiveCell: () => {},
   keys: [],
-  attemptsArray: [[""]],
+  attemptsArray: [[{ content: "", color: CellColor.plain }]],
   activeRow: 0,
   setActiveRow: () => {},
-  updateAttemptState: () => {},
+  updateAddAttemptState: () => {},
+  updateDeleteAttemptState: () => {},
   equasionObject: defaultEquasionObject,
+  handleSubmit: () => {},
 });
 
 const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [activeCell, setActiveCell] = useState<number>(0);
   const [activeRow, setActiveRow] = useState<number>(0);
   const [attemptsState, setAttemptsState] =
-    useState<AcceptedInputs[][]>(attemptsArray);
+    useState<CellState[][]>(attemptsArray);
   const [equasionObject, setEquasionOject] = useState<EquasionObject>(
     defaultEquasionObject
   );
 
-  const updateAttemptState = (value: any, isBackSpace: boolean) => {
-    if (activeCell - 1 >= 0 && isBackSpace) {
-      // If BackSpace is pressed
-      setActiveCell((cell) => cell - 1);
-      setAttemptsState((attemptArr) => {
-        attemptArr[activeRow][activeCell - 1] = "";
-        return attemptArr;
-      });
+  const handleSubmit = () => {
+    const attemptArray = attemptsState[activeRow].map((i) => i.content);
+
+    if (
+      activeCell === attemptsState[activeRow].length &&
+      validEquasion(attemptArray).answer === equasionObject.answer
+    ) {
+      const greenBlackYellow = determineGreenYellowBlack(
+        attemptArray,
+        equasionObject.equasionArray
+      );
+
+      const validatedRow = attemptsState[activeRow].map((value, index) => ({
+        ...value,
+        color: greenBlackYellow[index],
+      }));
+
+      if (attemptArray.toString() === equasionObject.equasionArray.toString()) {
+        setAttemptsState((attemptsState) => {
+          attemptsState[activeRow] = validatedRow;
+          return [...attemptsState];
+        });
+      } else {
+        setAttemptsState((attemptsState) => {
+          attemptsState[activeRow] = validatedRow;
+          return [...attemptsState];
+        });
+        setActiveCell(0);
+        setActiveRow((row) => row + 1);
+      }
     }
-    // Other possibilities
-    if (keys.includes(value)) {
+  };
+
+  const updateAddAttemptState = (value: any) => {
+    if (keys.includes(value) && activeCell <= 6) {
       setActiveCell((cell) => cell + 1);
       setAttemptsState((attemptArr) => {
-        attemptArr[activeRow][activeCell] = value;
-        return attemptArr;
+        attemptArr[activeRow][activeCell].content = value;
+        return [...attemptArr];
+      });
+    }
+  };
+
+  const updateDeleteAttemptState = () => {
+    if (activeCell - 1 >= 0) {
+      setActiveCell((cell) => cell - 1);
+      setAttemptsState((attemptArr) => {
+        attemptArr[activeRow][activeCell - 1].content = "";
+        return [...attemptArr];
       });
     }
   };
@@ -87,8 +132,10 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
         setActiveRow,
         keys,
         attemptsArray: attemptsState,
-        updateAttemptState,
+        updateAddAttemptState,
+        updateDeleteAttemptState,
         equasionObject,
+        handleSubmit,
       }}
     >
       {children}
