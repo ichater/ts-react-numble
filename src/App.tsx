@@ -13,7 +13,7 @@ function App() {
         <Body />
         <Keyboard />
       </GameContextProvider>
-      <p>Cloned by Izaaak Chater</p>
+      <p>Cloned by Izaak Chater</p>
     </div>
   );
 }

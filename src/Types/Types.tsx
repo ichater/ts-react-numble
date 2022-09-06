@@ -25,14 +25,21 @@ export interface EquasionObject {
 
 // export type CellColor = "black" | "yellow" | "plain" | "green";
 
-export enum CellColor {
-  plain = "",
+export enum KeyColor {
+  plain = "rgb(108,117,125)",
   yellow = "#ffc107",
   black = "black",
   green = "#28a745",
 }
 
-export interface CellState {
+export enum CellColor {
+  plain = "",
+  dark = "rgb(108,117,125)",
+  yellow = "#ffc107",
+  black = "black",
+  green = "#28a745",
+}
+export interface Cell {
   content: AcceptedInputs;
   color: CellColor;
 }

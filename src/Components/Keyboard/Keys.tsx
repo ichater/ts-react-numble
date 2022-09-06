@@ -9,7 +9,11 @@ function Keys(): JSX.Element {
     <div>
       <KeyboardWrapper>
         {keys.map((key) => (
-          <InputKey operator={key} key={key} />
+          <InputKey
+            operator={key.content}
+            color={key.color}
+            key={key.content}
+          />
         ))}
       </KeyboardWrapper>
       <EnterKey onClick={() => handleSubmit()}>Enter</EnterKey>

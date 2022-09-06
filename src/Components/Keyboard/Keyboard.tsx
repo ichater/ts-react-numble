@@ -9,13 +9,14 @@ function Keyboard() {
     updateAddAttemptState,
     updateDeleteAttemptState,
     handleSubmit,
+    gameWon,
   } = useContext(GameContext);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Backspace") updateDeleteAttemptState();
       if (event.key === "Enter") handleSubmit();
-      const result = keys.filter((e) => e === event.key).length > 0;
+      const result = keys.filter((e) => e.content === event.key).length > 0;
       result && updateAddAttemptState(event.key as any);
     };
 
@@ -25,9 +26,13 @@ function Keyboard() {
   }, [keys, updateAddAttemptState, updateDeleteAttemptState]);
 
   return (
-    <KeyboardAreaWrapper>
-      <Keys />
-    </KeyboardAreaWrapper>
+    <>
+      {!gameWon && (
+        <KeyboardAreaWrapper>
+          <Keys />
+        </KeyboardAreaWrapper>
+      )}
+    </>
   );
 }
 

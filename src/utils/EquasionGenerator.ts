@@ -6,7 +6,7 @@ const randomIntToString = (max: number): string =>
 // Generates a random operator.
 function getRandomOperator(): Operator {
   const operator = () => {
-    switch (Math.floor(Math.random() * 3)) {
+    switch (Math.floor(Math.random() * 4)) {
       case 0:
         return "+";
       case 1:
@@ -46,6 +46,25 @@ export const isDividingByZero = (equasion: string[]): boolean =>
       item === "0" && equasion[index - 1] === "/" ? "Bad" : "Good"
     )
     .includes("Bad");
+
+// export const dividedIsInt = (equasion: string[]): boolean => {
+//   if (equasion.includes("/")) {
+//     const newArr: "good"|"bad"[] = equasion.map((item, index) => {
+//       if (item === "/") {
+//         return answerIsInt([
+//           equasion[index - 1],
+//           equasion[index],
+//           equasion[index + 1],
+//         ])
+//           ? "good"
+//           : "bad";
+//       } else {
+//         return "good";
+//       }
+//     });
+//     return !newArr.includes("bad");
+//   }
+// };
 
 export const validEquasion = (equasionArr: string[]): EquasionObject => {
   if (!answerIsInt(equasionArr)) {

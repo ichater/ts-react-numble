@@ -1,4 +1,4 @@
-import { CellColor, CellState } from "../Types/Types";
+import { CellColor, Cell } from "../Types/Types";
 import {
   determineGreenYellowBlack,
   extractEquasionFromAttempt,
@@ -8,7 +8,7 @@ import {
 describe("equasionValiidator", () => {
   describe("extractEquasionFromAttempt", () => {
     it("returns the content from thee equasion array", () => {
-      const currentArr: CellState[] = [
+      const currentArr: Cell[] = [
         { content: "1", color: CellColor.plain },
         { content: "+", color: CellColor.plain },
         { content: "1", color: CellColor.plain },

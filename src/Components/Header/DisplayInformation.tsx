@@ -12,7 +12,7 @@ import {
   SampleAnswerWrapper,
 } from "./Styles/Styles";
 import { AiOutlineClose } from "react-icons/ai";
-import { DARK, SUCCESS, WARNING } from "../../CSS/GlobalStyles";
+import { CellColor } from "../../Types/Types";
 
 type Props = {
   setDisplayInformation: Dispatch<SetStateAction<boolean>>;
@@ -44,13 +44,13 @@ function DisplayInformation({
         </InformationParagraph>
         <SampleAnswerWrapper>
           <SampleAnswer>
-            <NumbleCell color={SUCCESS}>2</NumbleCell>
-            <NumbleCell color={DARK}>+</NumbleCell>
-            <NumbleCell color={DARK}>3</NumbleCell>
-            <NumbleCell color={DARK}>-</NumbleCell>
-            <NumbleCell color={DARK}>0</NumbleCell>
-            <NumbleCell color={DARK}>*</NumbleCell>
-            <NumbleCell color={DARK}>1</NumbleCell>
+            <NumbleCell color={CellColor.green}>2</NumbleCell>
+            <NumbleCell color={CellColor.black}>+</NumbleCell>
+            <NumbleCell color={CellColor.black}>3</NumbleCell>
+            <NumbleCell color={CellColor.black}>-</NumbleCell>
+            <NumbleCell color={CellColor.black}>0</NumbleCell>
+            <NumbleCell color={CellColor.black}>*</NumbleCell>
+            <NumbleCell color={CellColor.black}>1</NumbleCell>
           </SampleAnswer>
           <InformationParagraph> = 5</InformationParagraph>
         </SampleAnswerWrapper>
@@ -59,13 +59,13 @@ function DisplayInformation({
         </InformationParagraph>
         <SampleAnswerWrapper>
           <SampleAnswer>
-            <NumbleCell color={DARK}>3</NumbleCell>
-            <NumbleCell color={DARK}>*</NumbleCell>
-            <NumbleCell color={DARK}>2</NumbleCell>
-            <NumbleCell color={DARK}>/</NumbleCell>
-            <NumbleCell color={DARK}>1</NumbleCell>
-            <NumbleCell color={WARNING}>+</NumbleCell>
-            <NumbleCell color={DARK}>0</NumbleCell>
+            <NumbleCell color={CellColor.black}>3</NumbleCell>
+            <NumbleCell color={CellColor.black}>*</NumbleCell>
+            <NumbleCell color={CellColor.black}>2</NumbleCell>
+            <NumbleCell color={CellColor.black}>/</NumbleCell>
+            <NumbleCell color={CellColor.black}>1</NumbleCell>
+            <NumbleCell color={CellColor.yellow}>+</NumbleCell>
+            <NumbleCell color={CellColor.black}>0</NumbleCell>
           </SampleAnswer>
           <InformationParagraph> = 6</InformationParagraph>
         </SampleAnswerWrapper>
@@ -74,13 +74,13 @@ function DisplayInformation({
         </InformationParagraph>
         <SampleAnswerWrapper>
           <SampleAnswer>
-            <NumbleCell color={SUCCESS}>2</NumbleCell>
-            <NumbleCell color={SUCCESS}>*</NumbleCell>
-            <NumbleCell color={SUCCESS}>5</NumbleCell>
-            <NumbleCell color={SUCCESS}>-</NumbleCell>
-            <NumbleCell color={SUCCESS}>1</NumbleCell>
-            <NumbleCell color={DARK}>/</NumbleCell>
-            <NumbleCell color={SUCCESS}>1</NumbleCell>
+            <NumbleCell color={CellColor.green}>2</NumbleCell>
+            <NumbleCell color={CellColor.green}>*</NumbleCell>
+            <NumbleCell color={CellColor.green}>5</NumbleCell>
+            <NumbleCell color={CellColor.green}>-</NumbleCell>
+            <NumbleCell color={CellColor.green}>1</NumbleCell>
+            <NumbleCell color={CellColor.black}>/</NumbleCell>
+            <NumbleCell color={CellColor.green}>1</NumbleCell>
           </SampleAnswer>
           <InformationParagraph> = 5</InformationParagraph>
         </SampleAnswerWrapper>

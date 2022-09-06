@@ -21,7 +21,8 @@ export const InputKeyStyle = styled.button`
   border-radius: 0.25rem;
   font-size: 1.5rem;
   text-align: center;
-  background-color: rgb(108, 117, 125);
+  /* background-color: rgb(108, 117, 125); */
+  background-color: ${(props) => props.color};
   color: white;
   :hover {
     background-color: #343a40;
@@ -34,4 +35,5 @@ export const EnterKey = styled(InputKeyStyle)`
   height: fit-content;
   padding: 0.25rem 3rem;
   font-size: 1rem;
+  background-color: rgb(108, 117, 125);
 `;

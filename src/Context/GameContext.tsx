@@ -3,7 +3,7 @@ import { attemptsArray } from "../utils/AttemptsArray";
 import {
   AcceptedInputs,
   CellColor,
-  CellState,
+  Cell,
   EquasionObject,
 } from "../Types/Types";
 import {
@@ -12,12 +12,13 @@ import {
   validEquasion,
 } from "../utils/EquasionGenerator";
 import { determineGreenYellowBlack } from "../utils/EquasionValidator";
+import { keysArray } from "../utils/KeysArray";
 
 type GameContextProps = {
   activeCell: number;
   setActiveCell: React.Dispatch<React.SetStateAction<number>>;
-  keys: string[];
-  attemptsArray: CellState[][];
+  keys: Cell[];
+  attemptsArray: Cell[][];
   activeRow: number;
   setActiveRow: React.Dispatch<SetStateAction<number>>;
   updateAddAttemptState: (value: AcceptedInputs) => void;
@@ -44,12 +45,13 @@ export const GameContext = createContext<GameContextProps>({
 const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [activeCell, setActiveCell] = useState<number>(0);
   const [activeRow, setActiveRow] = useState<number>(0);
-  const [attemptsState, setAttemptsState] =
-    useState<CellState[][]>(attemptsArray);
+  const [attemptsState, setAttemptsState] = useState<Cell[][]>(attemptsArray);
   const [equasionObject, setEquasionOject] = useState<EquasionObject>(
     defaultEquasionObject
   );
   const [gameWon, setGameWon] = useState<boolean>(false);
+
+  const [keys, setKeys] = useState<Cell[]>(keysArray);
 
   const handleSubmit = () => {
     const attemptArray = attemptsState[activeRow].map((i) => i.content);
@@ -81,13 +83,38 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
         });
         setActiveCell(0);
         setActiveRow((row) => row + 1);
+
+        setKeys((keyArr) => {
+          keyArr.forEach((key) => {
+            attemptsState[activeRow].forEach((cell) => {
+              if (key.content !== cell.content) return;
+              if (
+                cell.color === CellColor.green ||
+                key.color === CellColor.green
+              )
+                return (key.color = CellColor.green);
+              if (
+                cell.color === CellColor.yellow ||
+                key.color === CellColor.yellow
+              )
+                return (key.color = CellColor.yellow);
+              if (
+                cell.color === CellColor.black ||
+                key.color === CellColor.black
+              )
+                return (key.color = CellColor.black);
+            });
+          });
+          return [...keyArr];
+        });
       }
     }
   };
 
   const updateAddAttemptState = (value: any) => {
     if (gameWon) return;
-    if (keys.includes(value) && activeCell <= 6) {
+    const keyInputs = keys.map((key) => key.content);
+    if (keyInputs.includes(value) && activeCell <= 6) {
       setActiveCell((cell) => cell + 1);
       setAttemptsState((attemptArr) => {
         attemptArr[activeRow][activeCell].content = value;
@@ -110,24 +137,6 @@ const GameContextProvider: React.FC<React.ReactNode> = ({ children }) => {
   useEffect(() => {
     return setEquasionOject(randomEquasionObject);
   }, []);
-
-  const keys: AcceptedInputs[] = [
-    "1",
-    "2",
-    "3",
-    "4",
-    "5",
-    "6",
-    "7",
-    "8",
-    "9",
-    "0",
-    "+",
-    "-",
-    "/",
-    "*",
-    "<-",
-  ];
 
   return (
     <GameContext.Provider

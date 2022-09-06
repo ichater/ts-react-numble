@@ -1,9 +1,9 @@
 import React from "react";
-import { CellState } from "../../Types/Types";
+import { Cell as CellType } from "../../Types/Types";
 import { Cell } from "./Styles/Styles";
 
 type AttemptsCellProps = {
-  value: CellState;
+  value: CellType;
 };
 
 function AttemptCell({ value }: AttemptsCellProps) {

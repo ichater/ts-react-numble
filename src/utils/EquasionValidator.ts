@@ -1,7 +1,7 @@
-import { CellState, CellColor } from "../Types/Types";
+import { Cell, CellColor } from "../Types/Types";
 import { validEquasion } from "./EquasionGenerator";
 
-export const extractEquasionFromAttempt = (currentRow: CellState[]): string[] =>
+export const extractEquasionFromAttempt = (currentRow: Cell[]): string[] =>
   currentRow.map((e) => e.content);
 
 export const isCorrectAnswer = (answer: string[], attempt: string[]): boolean =>

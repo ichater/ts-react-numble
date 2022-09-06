@@ -1,6 +1,6 @@
-import { CellColor, CellState } from "../Types/Types";
+import { CellColor, Cell } from "../Types/Types";
 
-export const attemptsArray: CellState[][] = [
+export const attemptsArray: Cell[][] = [
   [
     { content: "", color: CellColor.plain },
     { content: "", color: CellColor.plain },
