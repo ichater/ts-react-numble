@@ -1,6 +1,6 @@
 import {
   answerIsInt,
-  isDividingByZero,
+  dividedIsInt,
   randomEquasionArray,
   validEquasion,
 } from "./EquasionGenerator";
@@ -17,15 +17,6 @@ describe("Equasion Generator", () => {
     });
     it("Equasion that leads to a decimal is falsey", () => {
       expect(answerIsInt(["9", "/", "5"])).toBeFalsy();
-    });
-  });
-
-  describe("isDividedByZero", () => {
-    it("equasion does not divide by zero is falsey", () => {
-      expect(isDividingByZero(["9", "/", "5"])).toBeFalsy();
-    });
-    it("equasion does divide by zero is truthy", () => {
-      expect(isDividingByZero(["9", "/", "0"])).toBeTruthy();
     });
   });
 
@@ -52,6 +43,21 @@ describe("Equasion Generator", () => {
         "/",
         "2",
       ]);
+    });
+  });
+
+  describe("dividedIsInt", () => {
+    it("divided not in equasion returns true", () => {
+      expect(dividedIsInt(["9", "*", "3"])).toBeTruthy();
+    });
+    it("divided is in equasion and answer is int returns true", () => {
+      expect(dividedIsInt(["9", "/", "3"])).toBeTruthy();
+    });
+    it("divided is in equasion and answer is not int returns false", () => {
+      expect(dividedIsInt(["9", "/", "2"])).toBeFalsy();
+    });
+    it("dividing by zero returns false", () => {
+      expect(dividedIsInt(["9", "/", "0"])).toBeFalsy();
     });
   });
 });

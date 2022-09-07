@@ -39,41 +39,32 @@ export const answerIsInt = (equasion: string[]): boolean => {
   return answer % 1 === 0;
 };
 
-// Takes in array and returns true if dividing by zero
-export const isDividingByZero = (equasion: string[]): boolean =>
-  equasion
-    .map((item, index) =>
-      item === "0" && equasion[index - 1] === "/" ? "Bad" : "Good"
-    )
-    .includes("Bad");
-
-// export const dividedIsInt = (equasion: string[]): boolean => {
-//   if (equasion.includes("/")) {
-//     const newArr: "good"|"bad"[] = equasion.map((item, index) => {
-//       if (item === "/") {
-//         return answerIsInt([
-//           equasion[index - 1],
-//           equasion[index],
-//           equasion[index + 1],
-//         ])
-//           ? "good"
-//           : "bad";
-//       } else {
-//         return "good";
-//       }
-//     });
-//     return !newArr.includes("bad");
-//   }
-// };
+export const dividedIsInt = (equasion: string[]): boolean => {
+  if (equasion.includes("/")) {
+    const newArr: ("good" | "bad")[] = equasion.map((item, index) => {
+      if (item === "/") {
+        return answerIsInt([
+          equasion[index - 1],
+          equasion[index],
+          equasion[index + 1],
+        ])
+          ? "good"
+          : "bad";
+      } else {
+        return "good";
+      }
+    });
+    return !newArr.includes("bad");
+  }
+  return true;
+};
 
 export const validEquasion = (equasionArr: string[]): EquasionObject => {
-  if (!answerIsInt(equasionArr)) {
+  if (!answerIsInt(equasionArr) || !dividedIsInt(equasionArr)) {
     return validEquasion(randomEquasionArray(sevenArr));
   }
 
-  return isDividingByZero(equasionArr)
-    ? validEquasion(randomEquasionArray(sevenArr))
-    : { equasionArray: equasionArr, answer: sum(equasionArr.join(""))() };
+  return { equasionArray: equasionArr, answer: sum(equasionArr.join(""))() };
 };
 
 export const randomEquasionObject = validEquasion(
